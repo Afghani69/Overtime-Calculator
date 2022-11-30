@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <script defer src="./script.js"></script>
+    <title>Overtime Calculator</title>
+  </head>
+  <body>
+    <header class="container centered">
+      <h1 class="heading-primary">Overtime Calculator</h1>
+    </header>
+    <div class="input container centered">
+      <textarea
+        class="text"
+        rows="21"
+        placeholder="Input Text Here..."
+        cols="65"
+      ></textarea>
+      <div class="button-container">
+        <button class="button btn-example">Example Text</button>
+        <button class="button btn-calculate">Calculate</button>
+      </div>
+    </div>
+    <div class="card-container container centered">
+      <div class="card">
+        <h2 class="heading-secondary">Name Surname</h2>
+        <ul class="overtime-list">
+          <li class="overtime-item">
+            Normal Hours:
+            <span class="results results__normal"> 50.00 </span>
+          </li>
+          <li class="overtime-item">
+            Overtime Hours:
+            <span class="results overtime"> 50.00 </span>
+          </li>
+          <li class="overtime-item">
+            Sunday Hours:
+            <span class="results results__sunday"> 50.00 </span>
+          </li>
+          <li class="overtime-item">
+            Public Holiday Hours:
+            <span class="results results__public"> 50.00 </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

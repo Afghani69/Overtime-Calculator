@@ -1,0 +1,22 @@
+{
+  "name": "overtime-calculator",
+  "version": "1.0.0",
+  "description": "Overtime app for wife to use at work.",
+  "scripts": {
+    "start": "parcel index.html -p 2468",
+    "build": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Afghani69/Overtime-Calculator.git"
+  },
+  "author": "Eben Breytenbach",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Afghani69/Overtime-Calculator/issues"
+  },
+  "homepage": "https://github.com/Afghani69/Overtime-Calculator#readme",
+  "dependencies": {
+    "parcel": "^2.8.0"
+  }
+}

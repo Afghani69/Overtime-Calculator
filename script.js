@@ -1,10 +1,11 @@
-"use strict";
+'use strict';
 
-const exampleBtn = document.querySelector(".btn-example");
-const calculateBtn = document.querySelector(".btn-calculate");
-const text = document.querySelector(".text");
+const exampleBtn = document.querySelector('.btn-example');
+const calculateBtn = document.querySelector('.btn-calculate');
+const text = document.querySelector('.text');
+const publicText = document.querySelector('.public-text');
 
-exampleBtn.addEventListener("click", e => {
+exampleBtn.addEventListener('click', e => {
   const exampleText = `John Doe
   2022/10/03	08:53:09	18:34:26	09:41:17 (9.68)
   2022/10/04	08:44:29	18:23:22	09:38:53 (9.64)
@@ -56,11 +57,78 @@ exampleBtn.addEventListener("click", e => {
   navigator.clipboard.writeText(exampleText);
 });
 
-calculateBtn.addEventListener("click", e => {
-  const data = text.value;
-  const people = data.split(
-    /(?<!([a-zA-Z]+){1})\s(?=([a-zA-Z]+\s[a-zA-Z]+(\s[a-zA-Z]+)*))/g
-  );
+class Overtime {
+  personObject = [];
+  publicDates = [];
+  constructor() {
+    this._getPublicHolidays();
+  }
 
-  console.log(people);
+  separatePeople(data) {
+    this.people = data
+      .split(/(?<!([a-zA-Z]+){1})\s(?=([a-zA-Z]+\s){2,3})/)
+      .filter(el => el && el.length > 26);
+    this.createPersonObject();
+  }
+
+  createPersonObject() {
+    this.people.forEach((el, i) => {
+      const [name, ...days] = el.split('\n');
+      this.personObject[i] = {
+        name,
+        days,
+      };
+    });
+  }
+
+  formatDays() {
+    this.personObject.forEach(person => {
+      const formattedDays = person.days.split('\t');
+      console.log(formattedDays);
+    });
+    console.log(this.personObject);
+  }
+
+  calculatePublicHolidays(data) {
+    if (data) {
+      this.publicDates = [];
+      const dates = data.split('\n');
+      dates.forEach(day => {
+        this.publicDates.push(new Date(Date.parse(day)));
+      });
+      this._setPublicHolidays();
+    }
+  }
+
+  _setPublicHolidays() {
+    window.localStorage.setItem('publicDate', JSON.stringify(this.publicDates));
+  }
+
+  _getPublicHolidays() {
+    const savedDates = JSON.parse(window.localStorage.getItem('publicDate'));
+    if (savedDates) this.publicDates = savedDates;
+  }
+
+  calculateTotalTime() {}
+
+  calculateNormalTime() {}
+
+  calculateOvertime() {}
+
+  calculateSundayTime() {}
+
+  calculatePublicTime() {}
+
+  renderResults() {}
+}
+
+const app = new Overtime();
+
+calculateBtn.addEventListener('click', e => {
+  const peopleData = text.value;
+  const publicData = publicText.value;
+  app.separatePeople(peopleData);
+  app.createPersonObject();
+  app.calculatePublicHolidays(publicData);
+  app.formatDays();
 });

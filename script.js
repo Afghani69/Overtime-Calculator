@@ -109,13 +109,25 @@ class Overtime {
     if (savedDates) this.publicDates = savedDates;
   }
 
-  calculateTotalTime() {}
+  calculateTotalTime() {
+    // Numer of days weekdays in month
+  }
 
-  calculateNormalTime() {}
+  calculateNormalTime() {
+    // weekday hours worked
+  }
 
-  calculateOvertime() {}
+  calculateUnderTime() {
+    // only weekdays
+  }
 
-  calculateSundayTime() {}
+  calculateOvertime() {
+    // min 30minutes
+  }
+
+  calculateSundayTime() {
+    //
+  }
 
   calculatePublicTime() {}
 

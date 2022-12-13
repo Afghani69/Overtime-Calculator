@@ -7,3 +7,5 @@ After completing my JavaScript course, I decided to put my knowledge to the test
 This app will take my new knowledge of HTML, CSS & JS to create a complete, functioning and hopefully beautiful app which my wife can use without my help/guidance.
 
 1 - This time I will start with the UI again. After the To-Do-List where I started with logic, I am in the mood for some designing.
+
+2 - It's been a while since I commited anything. Though I haven't been idle. A lot of the formatting and basic logic has been completed. All that's left to do now is to do the major calculations for the different times. I have to say, dates are annoying...

@@ -558,12 +558,13 @@ class Overtime {
   calculateUnderTime() {
     // only weekdays
     this.personObject.forEach(person => {
-      const underTime = [];
+      const underTime = [person.totalNeededTime - person.normalTime];
       person.formatted.forEach(day => {
         const dayOfWeek = day.data.date.toDateString().slice(0, 3);
         const timeIn = day.data.timeIn;
         const timeOut = day.data.timeOut;
         const duration = Math.trunc((timeOut - timeIn) / 36000) / 100;
+
         if (this._isWeekdayChecker(dayOfWeek) && duration < 9)
           underTime.push(Math.trunc((9 - duration) * 100) / 100);
       });
@@ -600,21 +601,37 @@ class Overtime {
     });
   }
 
-  calculateSundayPublicTime() {
+  calculateSundayTime() {
     this.personObject.forEach(person => {
-      const sundayPublic = [];
+      const sunday = [];
       person.formatted.forEach(day => {
         const dayOfWeek = day.data.date.toDateString().slice(0, 3);
         const timeIn = day.data.timeIn;
         const timeOut = day.data.timeOut;
         const duration = Math.trunc((timeOut - timeIn) / 36000) / 100;
-        if (this._isSundayPublicChecker(dayOfWeek))
-          sundayPublic.push(Math.trunc(duration * 100) / 100);
+        if (this._isSundayChecker(dayOfWeek))
+          sunday.push(Math.trunc(duration * 100) / 100);
       });
-      if (sundayPublic.length > 1) {
-        person.sundayPublic =
-          Math.trunc(sundayPublic.reduce((a, b) => a + b) * 100) / 100;
-      } else person.sundayPublic = 0;
+      if (sunday.length > 1) {
+        person.sunday = Math.trunc(sunday.reduce((a, b) => a + b) * 100) / 100;
+      } else person.sunday = 0;
+    });
+  }
+  calculatePublicTime() {
+    this.personObject.forEach(person => {
+      const publicHours = [];
+      person.formatted.forEach(day => {
+        const dayOfWeek = day.data.date.toDateString().slice(0, 3);
+        const timeIn = day.data.timeIn;
+        const timeOut = day.data.timeOut;
+        const duration = Math.trunc((timeOut - timeIn) / 36000) / 100;
+        if (this._isPublicChecker(dayOfWeek))
+          publicHours.push(Math.trunc(duration * 100) / 100);
+      });
+      if (publicHours.length > 1) {
+        person.publicHours =
+          Math.trunc(publicHours.reduce((a, b) => a + b) * 100) / 100;
+      } else person.publicHours = 0;
     });
   }
 
@@ -634,7 +651,11 @@ class Overtime {
           </li>
           <li class="overtime-item">
             Sunday Hours:
-            <span class="results results__sunday"> ${person.sundayPublic} </span>
+            <span class="results results__sunday"> ${person.sunday} </span>
+          </li>
+          <li class="overtime-item">
+            Public Hours:
+            <span class="results results__sunday"> ${person.publicHours} </span>
           </li>
           <li class="overtime-item">
             Undertime:
@@ -677,8 +698,13 @@ class Overtime {
     }
   }
 
-  _isSundayPublicChecker(day) {
+  _isSundayChecker(day) {
     if (day.slice(0, 3) === 'Sun') {
+      return true;
+    }
+  }
+  _isPublicChecker(day) {
+    if (this.publicDates.includes(day)) {
       return true;
     }
   }
@@ -717,7 +743,8 @@ calculateBtn.addEventListener('click', e => {
   app.calculateNormalTime();
   app.calculateUnderTime();
   app.calculateOvertime();
-  app.calculateSundayPublicTime();
+  app.calculateSundayTime();
+  app.calculatePublicTime();
   app.renderResults();
   console.log(app.personObject);
 });
